@@ -1,3 +1,5 @@
+#To find absolute number
+# first method
 num = int(input("Enter:"))
 
 if num < 0:
