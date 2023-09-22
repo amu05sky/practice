@@ -15,12 +15,12 @@ num = int(input())
 ans = 0
 temp = num
 
-while num > 0:
-    mod = num % 10
+while temp > 0:
+    mod = temp % 10
     ans = ans * 10 + mod
-    num = num // 10
+    temp = temp // 10
 
-if ans == temp:
+if ans == num:
     print("Palindrome")
 else:
     print("Not Palindrome")
