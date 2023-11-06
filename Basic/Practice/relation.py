@@ -1,4 +1,4 @@
-# TheRelationshipMarks: 200
+# TheRelationship
 # Problem Description
 # The people of Kingdoms of Westeros are very organized. They are very devoted to their leader and cannot live without a leader even for a single day. Marriages, divorces, births, and deaths are everyday things in Westeros and because of these events people of Westeros need to spend their time on choosing the leader. People badly need a programme to find the new leader in case of these events. The criteria to choose the leader is as below.
 

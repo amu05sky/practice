@@ -1,10 +1,18 @@
 # SnakeAndLadderMarks: 30
 # Problem Description
-# Snake and Ladder is a board game consisting of snakes and ladders, where the player must reach End position, starting from Start position. Here, snake on the board makes player demotes the player to a lower numbered square and ladder promotes player to higher numbered square on the board.
-# For e.g., given below is the snake and ladder board, where S('pos') represents snake and 'pos' indicates where the player's coin will move down to once a player lands on that square. Similarly, L('pos') indicates ladder and 'pos' indicates where the player's coin will move up to once the player lands on that square. Player always starts from the Start square and must go towards End based on the rolls of the die.
-# You are supposed to find if it is possible for a player to reach the End or not, based on die inputs. If it is possible, display 'Possible' with number of snakes and ladders encountered during his/her play else display 'Not possible' along with number of snakes, number of ladders and square where the player's coin has ended at.
+# Snake and Ladder is a board game consisting of snakes and ladders, where the player must reach End position,
+# starting from Start position. Here, snake on the board makes player demotes the player to a lower numbered square
+# and ladder promotes player to higher numbered square on the board.
+# For e.g., given below is the snake and ladder board, where S('pos') represents snake and 'pos' 
+# indicates where the player's coin will move down to once a player lands on that square. Similarly, L('pos') 
+# indicates ladder and 'pos' indicates where the player's coin will move up to once the player lands on that square. 
+# Player always starts from the Start square and must go towards End based on the rolls of the die.
+# You are supposed to find if it is possible for a player to reach the End or not, based on die inputs.
+# If it is possible, display 'Possible' with number of snakes and ladders encountered during his/her play else display 
+# 'Not possible' along with number of snakes, number of ladders and square where the player's coin has ended at.
 # Note: A player can reach the end if he has the exact number on die input to reach end.
-# For e.g., if the player is at 99, he/she can reach end only if the die input is 1 and not any other input. So, he/she must wait till input on die is 1.
+# For e.g., if the player is at 99, he/she can reach end only if the die input is 1 and not any other input. 
+# So, he/she must wait till input on die is 1.
 # The actual Snake and Ladder board will look as depicted below. This format will be used for providing inputs.
 # End 99 S(2) 97 96 95 94 93 92 91
 # 81 82 83 84 85 86 87 88 89 90
@@ -20,7 +28,8 @@
 # 1 <= die_inputs <= 6
 # Number of die inputs >= 0
 # Input
-# First 10 lines contains snake and ladder board where each line has 10 tokens separated by a space. The tokens can either be integers, Start, End, S(number), L(number) where
+# First 10 lines contains snake and ladder board where each line has 10 tokens separated by a space. 
+# The tokens can either be integers, Start, End, S(number), L(number) where
 # Integer denotes the square number
 # Start denotes the left bottom position on the board from where player start the game
 # End denotes the left top position on the board
@@ -28,7 +37,10 @@
 # L(number) denotes that the current square has a ladder that will take you up to a square number mentioned in the parenthesis.
 # Second line contains die_inputs separated by a space.
 # Output
-# Find if the player is possible to reach the End or not, based on die_inputs and the board. If it is possible, display 'Possible' with number of snakes and ladders encountered during his/her play else display 'Not possible' along with number of snakes, number of ladders and the square where the player's coin has ended at.
+# Find if the player is possible to reach the End or not, based on die_inputs and the board. 
+# If it is possible, display 'Possible' with number of snakes and ladders encountered during 
+# his/her play else display 'Not possible' along with number of snakes, number of ladders and the 
+# square where the player's coin has ended at.
 # Print all the outputs delimited by a space.
 # Refer Examples section for better understanding.
 # Time Limit (secs)
@@ -49,7 +61,10 @@
 # Output
 # Not possible 1 0 2
 # Explanation
-# Based on die inputs, the player moves from start and goes to number 5 first on board then to 9, 11, 15 and finally to S(2) i.e., square numbered 16. Now player encountered snake which takes him to square numbered 2. So, output is 'Not possible', as the player couldn't reach the End and the number of snakes and ladders encountered during his/her play are one and zero respectively.
+# Based on die inputs, the player moves from start and goes to number 5 first on board then to 9, 11, 15 and 
+# finally to S(2) i.e., square numbered 16. Now player encountered snake which takes him to square numbered 2.
+# So, output is 'Not possible', as the player couldn't reach the End and the number of snakes and ladders 
+# encountered during his/her play are one and zero respectively.
 # Example 2
 # Input
 # End 99 98 S(7) 96 95 94 93 92 91
@@ -67,3 +82,27 @@
 # Possible 1 2
 # Explanation
 # Based on the die inputs, the player encountered 1 snake and 2 ladders and was able to reach the End.
+
+board = []
+for i in range(10):
+    line = input().split()
+    if i % 2 == 1:
+        board = line + board
+    else:
+        board = line[::-1] + board
+board = ['0'] + board
+mp = {'Start': 1, 'End': 100}
+memo = [int(v[2:-1]) if v[0] in {'S', 'L'} and v[1] == '(' and v[2].isdigit() else mp.get(v[2:-1], i) for i, v in enumerate(board)]
+dice = list(map(int, input().split()))
+curr, s, l = 0, 0, 0
+for v in dice:
+    if curr + v < 101:
+        curr += v
+    while memo[curr] != curr:
+        if curr > memo[curr]:
+            s += 1
+        else:
+            l += 1
+        curr = memo[curr]
+result = f'Possible {s} {l}' if curr == 100 else f'Not possible {s} {l} {"Start" if curr == 1 else curr}'
+print(result)
