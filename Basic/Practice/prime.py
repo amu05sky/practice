@@ -24,36 +24,3 @@
 # Explanation
 # Here q=2. Any number that when divided by 4 leaving remainder 2 must be an even number e.g., 6, 10, 14 etc. Hence it can't be prime. Hence, output is "None"
 
-input_numbers = input("Enter a space-separated list of numbers: ")
-numbers = list(map(int, input_numbers.split()))
-
-def is_prime(a):
-    if a == 1:
-        return True
-    if a==2:
-        return False
-    if a <= 3:
-        return True
-    if a % 2 == 0 or a % 3 == 0:
-        return False
-    i = 5
-    while i * i <= a:
-        if a % i == 0 or a % (i + 2) == 0:
-            return False
-        i += 6
-    return True
-
-if len(numbers) >= 3:
-    expected_numbers = list(range(3, numbers[0] + 3))  # Expected natural numbers
-    first_three_numbers = numbers[:3]  # First three numbers in the list
-    last = numbers[-1]
-
-    if first_three_numbers == expected_numbers and is_prime(last) == True:
-        product_first_three = first_three_numbers[0] * first_three_numbers[1] * first_three_numbers[2]
-        sum_remaining = product_first_three + is_prime(last)
-
-        print(f"Sum of the remaining numbers: {sum_remaining}")
-    else:
-        print("None")
-else:
-    print()
